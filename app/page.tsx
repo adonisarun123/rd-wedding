@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { Countdown } from "@/components/Countdown";
 import { CoupleSection } from "@/components/CoupleSection";
+import { FlowerShower } from "@/components/FlowerShower";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
-import { RSVPForm } from "@/components/RSVPForm";
 import { ScheduleSection } from "@/components/ScheduleSection";
 import { SplashScreen } from "@/components/SplashScreen";
 import { VenueMap } from "@/components/VenueMap";
@@ -36,22 +36,25 @@ export default function Home() {
       <main
         className={
           splashDone
-            ? "min-h-[100dvh] bg-[var(--bg-page)]"
-            : "pointer-events-none min-h-[100dvh] opacity-0"
+            ? "relative min-h-[100dvh] bg-[var(--bg-page)]"
+            : "pointer-events-none relative min-h-[100dvh] opacity-0"
         }
       >
-        <div className="mx-auto max-w-5xl px-4 pb-16 pt-0 sm:px-6 lg:px-8">
-          <Hero />
-          <CoupleSection />
-          <ScheduleSection />
-          <Countdown />
-          <div className="grid gap-10 border-t border-[var(--border)] py-10 lg:grid-cols-2 lg:items-start lg:gap-12 lg:py-14">
-            <VenueMap embedded />
-            <RSVPForm embedded />
+        {splashDone ? <FlowerShower /> : null}
+
+        <div className="relative z-[2]">
+          <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
+            <Hero />
+            <CoupleSection />
+            <ScheduleSection />
+            <Countdown />
+            <div className="border-t border-[var(--border)] py-12 md:py-16">
+              <VenueMap />
+            </div>
+            <Gallery />
           </div>
-          <Gallery />
+          <Footer />
         </div>
-        <Footer />
       </main>
 
       {splashDone ? <AudioPlayer /> : null}

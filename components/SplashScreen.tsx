@@ -40,7 +40,7 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
 
   return (
     <motion.div
-      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[var(--accent)] text-white"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-gradient-to-br from-[var(--sage-deep)] via-[var(--terracotta)] to-[var(--sage-deep)] text-white"
       initial={{ opacity: 1 }}
       animate={
         phase === "exit"
@@ -53,14 +53,14 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
       {!simple && phase === "exit" ? (
         <>
           <motion.div
-            className="absolute inset-y-0 left-0 w-1/2 bg-[var(--accent)] shadow-2xl"
+            className="absolute inset-y-0 left-0 w-1/2 bg-[var(--sage-deep)] shadow-2xl"
             initial={{ x: 0, rotateY: 0 }}
             animate={{ x: "-100%", rotateY: 12 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             onAnimationComplete={handleSplitDone}
           />
           <motion.div
-            className="absolute inset-y-0 right-0 w-1/2 bg-[var(--accent)] shadow-2xl"
+            className="absolute inset-y-0 right-0 w-1/2 bg-[var(--sage-deep)] shadow-2xl"
             initial={{ x: 0, rotateY: 0 }}
             animate={{ x: "100%", rotateY: -12 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}

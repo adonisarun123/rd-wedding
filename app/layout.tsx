@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Fraunces } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-fraunces",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -40,7 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${fraunces.variable} ${cormorant.variable}`}
+    >
       <body className="min-h-[100dvh] antialiased font-sans">
         <MotionProvider>{children}</MotionProvider>
       </body>

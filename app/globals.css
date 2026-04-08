@@ -1,38 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --bg-page: #f7f6f3;
-  --surface: #ffffff;
-  --surface-muted: #f0eeea;
-  --border: #e2dfd8;
-  --border-strong: #c9c4bb;
-  --accent: #8f2d2d;
-  --accent-hover: #752424;
-  --accent-soft: #f3e8e8;
+  /* Pampas grass + warm ceremony palette */
+  --bg-page: #f0ebe3;
+  --bg-wash: #e8e2d8;
+  --surface: #faf7f2;
+  --surface-elevated: #ffffff;
+  --sage: #8f9b82;
+  --sage-deep: #6b7562;
+  --sage-mist: #c5cdb8;
+  --sage-soft: #e2e8db;
+  --wheat: #c4a574;
+  --wheat-light: #dcc9a8;
+  --terracotta: #9c4d3e;
+  --terracotta-soft: #f0e4e1;
+  --border: #ddd5c8;
+  --border-strong: #c4bba8;
+  --accent: #8c3d3a;
+  --accent-hover: #732f2d;
+  --accent-soft: #f3e8e6;
   --gold-accent: #b8954c;
-  --text: #1c1917;
-  --text-muted: #57534e;
-  --text-subtle: #78716c;
-  /* legacy aliases for decorative SVGs that still reference these */
-  --deep-red: #8f2d2d;
-  --vermillion: #b83c3c;
-  --temple-cream: #f7f6f3;
+  --text: #2a2622;
+  --text-muted: #5c564d;
+  --text-subtle: #7a7267;
+  /* legacy / SVG */
+  --deep-red: #8c3d3a;
+  --vermillion: #a04540;
+  --temple-cream: #faf7f2;
   --white-silk: #ffffff;
-  --banana-leaf-green: #3d5c3a;
-  --turmeric-yellow: #d4a84b;
+  --banana-leaf-green: #5a6b52;
+  --turmeric-yellow: #c9a227;
   --bronze: #6b5344;
   --kolam-brown: #8b7355;
-  --lotus-pink: #c97b9a;
+  --lotus-pink: #c48b9e;
   --gold: #b8954c;
-  --gold-light: #e5d9c4;
+  --gold-light: #e8dcc4;
   --gold-dark: #8a7038;
-  --rose-tint: #faf6f6;
-  --text-dark: #1c1917;
+  --rose-tint: #f5efeb;
+  --text-dark: #2a2622;
 }
 
 @theme inline {
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-invite: var(--font-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
 }
 
 html {
@@ -56,6 +67,33 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes petal-fall-y {
+  0% {
+    transform: translateY(-12vh);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0.08;
+  }
+}
+
+@keyframes petal-sway-inner {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  33% {
+    transform: translateX(10px) rotate(120deg);
+  }
+  66% {
+    transform: translateX(-6px) rotate(240deg);
   }
 }
 
@@ -90,36 +128,41 @@ body {
   }
 }
 
-/* Section shell */
+@keyframes shimmer-line {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
 .section-panel {
-  background: var(--surface);
+  background: var(--surface-elevated);
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(42, 38, 34, 0.04);
 }
 
-.input-modern {
+.invite-card {
+  background: var(--surface-elevated);
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  background: var(--surface);
-  padding: 0.625rem 0.875rem;
-  font-size: 1rem;
-  width: 100%;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 25px 50px -12px rgba(42, 38, 34, 0.07),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
-.input-modern:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-
-/* Responsive data table */
 .r-table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  background: var(--surface);
+  border-radius: 1rem;
+  background: var(--surface-elevated);
+  box-shadow: 0 4px 24px rgba(42, 38, 34, 0.06);
 }
 
 .r-table {
@@ -136,21 +179,21 @@ body {
 }
 
 .r-table thead {
-  background: var(--surface-muted);
+  background: linear-gradient(180deg, var(--sage-soft) 0%, var(--surface) 100%);
   border-bottom: 1px solid var(--border);
 }
 
 .r-table th {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1.125rem;
   font-weight: 600;
-  color: var(--text-muted);
-  font-size: 0.75rem;
+  color: var(--sage-deep);
+  font-size: 0.6875rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
 }
 
 .r-table td {
-  padding: 1rem;
+  padding: 1.125rem 1.125rem;
   vertical-align: top;
   border-bottom: 1px solid var(--border);
 }
