@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type MutableRefObject } from "react";
 
-const TARGET_VOLUME = 0.3;
+const TARGET_VOLUME = 0.55;
 const FADE_MS = 1600;
 const FADE_STEPS = 20;
 

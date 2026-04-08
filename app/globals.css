@@ -183,6 +183,60 @@ body {
     0 0 0 1px rgba(255, 255, 255, 0.6) inset;
 }
 
+/* Hero welcome card — depth, warm gold frame, subtle tilt */
+.hero-invite-perspective {
+  perspective: 1280px;
+}
+
+.hero-invite-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(2.25deg) translateZ(0);
+  backface-visibility: hidden;
+  border-radius: 1.35rem;
+  background: linear-gradient(
+    168deg,
+    #ffffff 0%,
+    #fefcfa 30%,
+    #f9f6f0 70%,
+    #f3eee6 100%
+  );
+  border: 1px solid rgba(184, 149, 76, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.88) inset,
+    0 1px 2px rgba(42, 38, 34, 0.05),
+    0 10px 24px rgba(42, 38, 34, 0.07),
+    0 28px 56px -10px rgba(42, 38, 34, 0.11),
+    0 44px 88px -18px rgba(156, 77, 62, 0.13),
+    0 64px 120px -28px rgba(107, 117, 98, 0.09);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-invite-perspective:hover .hero-invite-card {
+    transform: rotateX(0deg) translateY(-8px) translateZ(16px);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.92) inset,
+      0 2px 6px rgba(42, 38, 34, 0.06),
+      0 18px 40px rgba(42, 38, 34, 0.1),
+      0 40px 80px -12px rgba(156, 77, 62, 0.18),
+      0 56px 110px -22px rgba(107, 117, 98, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-invite-card {
+    transform: none;
+    transition: none;
+  }
+
+  .hero-invite-perspective:hover .hero-invite-card {
+    transform: none;
+  }
+}
+
 .r-table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
