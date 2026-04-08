@@ -1,86 +1,32 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { CoupleIllustration } from "./decorative/CoupleIllustration";
-import { KolamDivider } from "./decorative/KolamDivider";
-import { Parrot } from "./decorative/Parrot";
 
 export function CoupleSection() {
   return (
-    <section
-      className="relative overflow-hidden bg-[var(--white-silk)] px-4 py-20"
-      aria-label="The couple"
-    >
-      <div className="mx-auto max-w-3xl">
-        <motion.div
-          className="rounded-sm border-2 border-[var(--kolam-brown)] bg-[var(--temple-cream)]/80 p-8 shadow-lg md:p-12"
-          style={{
-            boxShadow: "0 8px 32px rgba(44,24,16,0.08), inset 0 0 0 1px var(--gold-light)",
-          }}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-12%" }}
-          transition={{ type: "spring", stiffness: 80, damping: 20 }}
-        >
-          <div className="flex flex-col items-center gap-2 text-center md:flex-row md:justify-center md:gap-6">
-            <motion.span
-              className="font-[family-name:var(--font-cormorant)] text-3xl italic text-[var(--deep-red)] md:text-5xl text-shimmer-gold"
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.05 }}
-            >
+    <section className="border-b border-[var(--border)] py-10 md:py-14" aria-label="The couple">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-subtle)]">
+            Together with their families
+          </p>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="font-display text-3xl font-semibold text-[var(--text)] sm:text-4xl">
               Roopashri
-            </motion.span>
-            <span
-              className="font-[family-name:var(--font-yatra)] text-3xl text-[var(--lotus-pink)] md:text-4xl"
-              aria-hidden="true"
-            >
-              ✿
             </span>
-            <motion.span
-              className="font-[family-name:var(--font-cormorant)] text-3xl italic text-[var(--deep-red)] md:text-5xl text-shimmer-gold"
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
-            >
+            <span className="text-lg text-[var(--text-subtle)]">&</span>
+            <span className="font-display text-3xl font-semibold text-[var(--text)] sm:text-4xl">
               Dhakshinamoorthy
-            </motion.span>
+            </span>
           </div>
-
-          <div className="relative mt-10 flex items-center justify-center gap-4">
-            <Parrot className="h-10 w-10 md:h-12 md:w-12 opacity-90" />
-            <motion.div
-              className="rounded-full border-4 border-double border-[var(--gold)] bg-[var(--deep-red)] px-8 py-4 text-3xl font-semibold text-[var(--gold-light)] shadow-md md:text-4xl"
-              style={{ fontFamily: "var(--font-cormorant), serif" }}
-              initial={{ scale: 0.85, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 120, damping: 12 }}
-            >
-              R & D
-            </motion.div>
-            <Parrot className="h-10 w-10 md:h-12 md:w-12 scale-x-[-1] opacity-90" />
+          <div className="mt-6 inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--surface-muted)] px-5 py-2">
+            <span className="text-sm font-semibold tracking-wide text-[var(--text-muted)]">Monogram</span>
+            <span className="ml-3 font-display text-xl font-semibold tabular-nums text-[var(--accent)]">
+              R · D
+            </span>
           </div>
-
-          <KolamDivider variant="simple" />
-
-          <motion.div
-            className="mx-auto max-w-xs md:max-w-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.25 }}
-          >
-            <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <CoupleIllustration className="h-auto w-full" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
+        </div>
+        <div className="section-panel flex justify-center p-6 md:p-8">
+          <CoupleIllustration className="h-auto w-full max-w-[240px] md:max-w-[280px]" />
+        </div>
       </div>
     </section>
   );

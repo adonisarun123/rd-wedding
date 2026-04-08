@@ -17,8 +17,8 @@ export default function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(160deg, #8B1A1A 0%, #5c1010 50%, #8B1A1A 100%)",
-          color: "#E8D5A3",
+          background: "linear-gradient(165deg, #8f2d2d 0%, #6a2222 45%, #1c1917 100%)",
+          color: "#fafaf9",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -39,9 +39,9 @@ export default function Image() {
             marginTop: 32,
             fontSize: 36,
             padding: "12px 40px",
-            border: "3px solid #C5A55A",
-            borderRadius: 8,
-            color: "#C5A55A",
+            border: "2px solid rgba(250,250,249,0.45)",
+            borderRadius: 12,
+            color: "#fafaf9",
           }}
         >
           R & D

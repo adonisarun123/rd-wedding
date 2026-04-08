@@ -1,26 +1,19 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Serif_Tamil, Yatra_One } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-cormorant",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
-const yatra = Yatra_One({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-yatra-one",
-  display: "swap",
-});
-
-const notoTamil = Noto_Serif_Tamil({
-  subsets: ["tamil", "latin"],
-  weight: ["400", "600"],
-  variable: "--font-noto-tamil",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -47,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${yatra.variable} ${notoTamil.variable}`}>
-      <body className="grain min-h-[100dvh] antialiased">
+    <html lang="en" className={`${dmSans.variable} ${fraunces.variable}`}>
+      <body className="min-h-[100dvh] antialiased font-sans">
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

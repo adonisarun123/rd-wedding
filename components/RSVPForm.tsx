@@ -1,11 +1,15 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState, type ReactNode } from "react";
 
 type Attending = "reception" | "wedding" | "both" | "unable";
 
-export function RSVPForm() {
+type RSVPFormProps = {
+  embedded?: boolean;
+};
+
+export function RSVPForm({ embedded }: RSVPFormProps) {
   const [name, setName] = useState("");
   const [guests, setGuests] = useState("1");
   const [attending, setAttending] = useState<Attending>("both");
@@ -41,161 +45,137 @@ export function RSVPForm() {
     }
   }
 
-  return (
-    <section
-      className="bg-[var(--rose-tint)] px-4 py-16"
-      aria-label="RSVP"
-    >
-      <div className="mx-auto max-w-lg">
-        <h2 className="text-center font-[family-name:var(--font-yatra)] text-2xl text-[var(--deep-red)] md:text-3xl">
-          We&apos;d love to have you bless the couple
-        </h2>
-        <p className="mt-3 text-center font-[family-name:var(--font-cormorant)] text-[var(--text-muted)]">
-          Kindly let us know if you can join us.
-        </p>
-
-        <AnimatePresence mode="wait">
-          {status === "done" ? (
-            <motion.div
-              key="thanks"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              className="mt-10 flex flex-col items-center text-center"
-            >
-              <motion.svg
-                viewBox="0 0 120 120"
-                className="h-32 w-32 text-[var(--lotus-pink)]"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 120, damping: 12 }}
-                aria-hidden="true"
-              >
-                <motion.path
-                  d="M60 20 C40 50 30 70 60 100 C90 70 80 50 60 20"
-                  fill="currentColor"
-                  opacity="0.85"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1 }}
-                />
-                <motion.path
-                  d="M60 35 C48 55 45 72 60 88 C75 72 72 55 60 35"
-                  fill="var(--gold-light)"
-                  opacity="0.9"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                  style={{ transformOrigin: "60px 60px" }}
-                />
-              </motion.svg>
-              <p className="mt-4 font-[family-name:var(--font-cormorant)] text-xl text-[var(--deep-red)]">
-                Thank you — we cherish your blessings.
-              </p>
-            </motion.div>
-          ) : (
-            <motion.form
-              key="form"
-              onSubmit={onSubmit}
-              className="mt-10 space-y-6"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <div>
-                <label htmlFor="rsvp-name" className="block font-[family-name:var(--font-cormorant)] text-sm font-semibold text-[var(--text-dark)]">
-                  Name
-                </label>
-                <input
-                  id="rsvp-name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="input-kolam-underline mt-1"
-                  autoComplete="name"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="rsvp-guests" className="block font-[family-name:var(--font-cormorant)] text-sm font-semibold text-[var(--text-dark)]">
-                  Number of guests
-                </label>
-                <select
-                  id="rsvp-guests"
-                  name="guests"
-                  value={guests}
-                  onChange={(e) => setGuests(e.target.value)}
-                  className="input-kolam-underline mt-1 bg-transparent"
-                >
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>
-                      {n}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <fieldset>
-                <legend className="font-[family-name:var(--font-cormorant)] text-sm font-semibold text-[var(--text-dark)]">
-                  Attending
-                </legend>
-                <div className="mt-3 space-y-3">
-                  {(
-                    [
-                      ["reception", "Reception"],
-                      ["wedding", "Wedding"],
-                      ["both", "Both"],
-                      ["unable", "Unable to attend"],
-                    ] as const
-                  ).map(([value, label]) => (
-                    <label key={value} className="flex cursor-pointer items-center gap-3">
-                      <input
-                        type="radio"
-                        name="attending"
-                        value={value}
-                        checked={attending === value}
-                        onChange={() => setAttending(value)}
-                        className="h-5 w-5 accent-[var(--deep-red)]"
-                      />
-                      <span className="font-[family-name:var(--font-cormorant)] text-[var(--text-muted)]">
-                        {label}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-
-              <div>
-                <label htmlFor="rsvp-msg" className="block font-[family-name:var(--font-cormorant)] text-sm font-semibold text-[var(--text-dark)]">
-                  Message for the couple (optional)
-                </label>
-                <textarea
-                  id="rsvp-msg"
-                  name="message"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  rows={3}
-                  className="input-kolam-underline mt-1 resize-y"
-                />
-              </div>
-
-              {error ? (
-                <p className="text-sm text-[var(--vermillion)]" role="alert">
-                  {error}
-                </p>
-              ) : null}
-
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="w-full min-h-12 rounded-full bg-[var(--gold)] px-6 py-3 font-[family-name:var(--font-cormorant)] text-sm font-semibold uppercase tracking-widest text-[var(--deep-red)] shadow disabled:opacity-60"
-              >
-                {status === "loading" ? "Sending…" : "Submit RSVP"}
-              </button>
-            </motion.form>
-          )}
-        </AnimatePresence>
+  const shell = (children: ReactNode) =>
+    embedded ? (
+      <div className="section-panel p-5 md:p-6" aria-label="RSVP">
+        {children}
       </div>
-    </section>
+    ) : (
+      <section className="bg-[var(--accent-soft)] px-4 py-16" aria-label="RSVP">
+        <div className="mx-auto max-w-lg">{children}</div>
+      </section>
+    );
+
+  return shell(
+    <>
+      <h2 className="font-display text-xl font-semibold text-[var(--text)] md:text-2xl">
+        RSVP
+      </h2>
+      <p className="mt-2 text-sm text-[var(--text-muted)] md:text-base">
+        We&apos;d love to know if you can join us.
+      </p>
+
+      <AnimatePresence mode="wait">
+        {status === "done" ? (
+          <motion.div
+            key="thanks"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-8 rounded-lg border border-[var(--border)] bg-[var(--surface-muted)] px-4 py-6 text-center"
+          >
+            <p className="text-lg font-semibold text-[var(--text)]">Thank you</p>
+            <p className="mt-2 text-sm text-[var(--text-muted)]">
+              Your response was recorded. We cherish your blessings.
+            </p>
+          </motion.div>
+        ) : (
+          <motion.form
+            key="form"
+            onSubmit={onSubmit}
+            className="mt-8 space-y-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div>
+              <label htmlFor="rsvp-name" className="block text-sm font-semibold text-[var(--text)]">
+                Name
+              </label>
+              <input
+                id="rsvp-name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="input-modern mt-1.5"
+                autoComplete="name"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="rsvp-guests" className="block text-sm font-semibold text-[var(--text)]">
+                Number of guests
+              </label>
+              <select
+                id="rsvp-guests"
+                name="guests"
+                value={guests}
+                onChange={(e) => setGuests(e.target.value)}
+                className="input-modern mt-1.5"
+              >
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <fieldset>
+              <legend className="text-sm font-semibold text-[var(--text)]">Attending</legend>
+              <div className="mt-3 space-y-2.5">
+                {(
+                  [
+                    ["reception", "Reception"],
+                    ["wedding", "Wedding ceremony"],
+                    ["both", "Both"],
+                    ["unable", "Unable to attend"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <label key={value} className="flex cursor-pointer items-center gap-3">
+                    <input
+                      type="radio"
+                      name="attending"
+                      value={value}
+                      checked={attending === value}
+                      onChange={() => setAttending(value)}
+                      className="h-4 w-4 accent-[var(--accent)]"
+                    />
+                    <span className="text-sm text-[var(--text-muted)]">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div>
+              <label htmlFor="rsvp-msg" className="block text-sm font-semibold text-[var(--text)]">
+                Message (optional)
+              </label>
+              <textarea
+                id="rsvp-msg"
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                rows={3}
+                className="input-modern mt-1.5 resize-y"
+              />
+            </div>
+
+            {error ? (
+              <p className="text-sm text-[var(--vermillion)]" role="alert">
+                {error}
+              </p>
+            ) : null}
+
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="h-12 w-full rounded-lg bg-[var(--accent)] text-sm font-semibold text-white transition hover:bg-[var(--accent-hover)] disabled:opacity-60"
+            >
+              {status === "loading" ? "Sending…" : "Submit RSVP"}
+            </button>
+          </motion.form>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

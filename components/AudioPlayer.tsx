@@ -67,9 +67,9 @@ export function AudioPlayer() {
         <button
           type="button"
           onClick={fadeIn}
-          className="fixed bottom-24 right-4 z-[9990] max-w-[min(90vw,280px)] rounded-full border-2 border-[var(--gold)] bg-[var(--white-silk)] px-4 py-3 text-left text-[var(--text-dark)] shadow-lg md:bottom-8 md:right-8"
+          className="fixed bottom-24 right-4 z-[9990] max-w-[min(90vw,280px)] rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-left text-[var(--text)] shadow-lg md:bottom-8 md:right-8"
         >
-          <span className="font-[family-name:var(--font-cormorant)] text-base font-semibold">
+          <span className="text-sm font-semibold sm:text-base">
             Tap to experience with music
           </span>
           <span className="ml-2" aria-hidden="true">
@@ -83,7 +83,7 @@ export function AudioPlayer() {
         onClick={toggle}
         disabled={!ready}
         aria-label={playing ? "Mute music" : "Play music"}
-        className="fixed bottom-4 right-4 z-[9991] flex h-12 w-12 items-center justify-center rounded-full border-2 border-[var(--gold-dark)] bg-[var(--gold-light)] text-[var(--deep-red)] shadow-md disabled:opacity-40 md:bottom-6 md:right-6"
+        className="fixed bottom-4 right-4 z-[9991] flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text)] shadow-md disabled:opacity-40 md:bottom-6 md:right-6"
         style={
           playing
             ? { animation: "pulse-soft 2s ease-in-out infinite" }

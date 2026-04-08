@@ -40,7 +40,7 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
 
   return (
     <motion.div
-      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[var(--deep-red)] text-[var(--gold-light)]"
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[var(--accent)] text-white"
       initial={{ opacity: 1 }}
       animate={
         phase === "exit"
@@ -53,14 +53,14 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
       {!simple && phase === "exit" ? (
         <>
           <motion.div
-            className="absolute inset-y-0 left-0 w-1/2 bg-[var(--deep-red)] shadow-2xl"
+            className="absolute inset-y-0 left-0 w-1/2 bg-[var(--accent)] shadow-2xl"
             initial={{ x: 0, rotateY: 0 }}
             animate={{ x: "-100%", rotateY: 12 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             onAnimationComplete={handleSplitDone}
           />
           <motion.div
-            className="absolute inset-y-0 right-0 w-1/2 bg-[var(--deep-red)] shadow-2xl"
+            className="absolute inset-y-0 right-0 w-1/2 bg-[var(--accent)] shadow-2xl"
             initial={{ x: 0, rotateY: 0 }}
             animate={{ x: "100%", rotateY: -12 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
@@ -79,7 +79,7 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          <GaneshaIcon className="h-16 w-16 md:h-20 md:w-20 text-[var(--gold)]" />
+          <GaneshaIcon className="h-16 w-16 text-white/90 md:h-20 md:w-20" />
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -90,7 +90,7 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
           <Deepam className="h-28 w-20 md:h-36 md:w-24" />
         </motion.div>
         <motion.p
-          className="font-[family-name:var(--font-yatra)] text-2xl md:text-3xl tracking-wide"
+          className="font-display text-2xl tracking-wide md:text-3xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
@@ -98,7 +98,7 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
           ॐ
         </motion.p>
         <motion.p
-          className="font-[family-name:var(--font-cormorant)] text-lg text-[var(--gold-light)]"
+          className="text-lg text-white/85"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1, duration: 0.5 }}

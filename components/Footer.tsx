@@ -1,24 +1,12 @@
-import { KolamDivider } from "./decorative/KolamDivider";
-
 export function Footer() {
   return (
-    <footer className="bg-[var(--deep-red)] px-4 py-12 text-[var(--gold-light)]">
-      <div className="mx-auto max-w-xl text-center">
-        <KolamDivider variant="simple" className="text-[var(--gold-light)] opacity-80" />
-        <p className="mt-6 font-[family-name:var(--font-cormorant)] text-lg">
-          With love & blessings
-        </p>
-        <p
-          className="mt-4 text-3xl font-semibold tracking-wide text-[var(--gold)]"
-          style={{ fontFamily: "var(--font-cormorant), serif" }}
-        >
-          R & D
-        </p>
-        <p className="mt-6 text-sm text-[var(--gold-light)]/90">
-          We look forward to celebrating with you
-        </p>
-        <p className="mt-4 text-xs opacity-80">Made with ❤️</p>
-      </div>
+    <footer className="border-t border-[var(--border)] bg-[var(--surface)] px-4 py-10 text-center sm:px-6">
+      <p className="text-sm text-[var(--text-muted)]">With love & blessings</p>
+      <p className="font-display mt-2 text-2xl font-semibold text-[var(--text)]">R & D</p>
+      <p className="mt-3 text-sm text-[var(--text-subtle)]">
+        We look forward to celebrating with you
+      </p>
+      <p className="mt-6 text-xs text-[var(--text-subtle)]">June 2026 · Bengaluru</p>
     </footer>
   );
 }
