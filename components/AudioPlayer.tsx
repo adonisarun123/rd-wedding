@@ -9,9 +9,11 @@ const FADE_STEPS = 20;
 type AudioPlayerProps = {
   /** Parent assigns synchronous unlock for iOS (e.g. splash tap). */
   unlockRef?: MutableRefObject<(() => void) | null>;
+  /** Start / resume music at full target volume (e.g. couple card tap). */
+  playRef?: MutableRefObject<(() => void) | null>;
 };
 
-export function AudioPlayer({ unlockRef }: AudioPlayerProps) {
+export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const userTurnedOffRef = useRef(false);
@@ -80,6 +82,35 @@ export function AudioPlayer({ unlockRef }: AudioPlayerProps) {
 
   beginPlaybackRef.current = beginPlayback;
 
+  const playImmediateFromGesture = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    userTurnedOffRef.current = false;
+    clearFade();
+
+    const go = () => {
+      audio.volume = TARGET_VOLUME;
+      void audio.play().then(() => {
+        setHasStarted(true);
+        setPlaying(true);
+      });
+    };
+
+    if (audio.readyState < 2) {
+      const onReady = () => {
+        audio.removeEventListener("canplay", onReady);
+        go();
+      };
+      audio.addEventListener("canplay", onReady, { once: true });
+      audio.load();
+      return;
+    }
+    go();
+  }, [clearFade]);
+
+  const playImmediateRef = useRef(playImmediateFromGesture);
+  playImmediateRef.current = playImmediateFromGesture;
+
   useEffect(() => {
     if (!unlockRef) return;
     unlockRef.current = () => {
@@ -90,6 +121,16 @@ export function AudioPlayer({ unlockRef }: AudioPlayerProps) {
       unlockRef.current = null;
     };
   }, [unlockRef, beginPlayback]);
+
+  useEffect(() => {
+    if (!playRef) return;
+    playRef.current = () => {
+      playImmediateRef.current();
+    };
+    return () => {
+      playRef.current = null;
+    };
+  }, [playRef]);
 
   useEffect(() => {
     const audio = audioRef.current;

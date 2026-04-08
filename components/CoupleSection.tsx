@@ -1,12 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { CoupleIllustration } from "./decorative/CoupleIllustration";
 import { FloralRule } from "./decorative/FloralRule";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-export function CoupleSection() {
+type CoupleSectionProps = {
+  /** Starts wedding music immediately (same user gesture — works on mobile). */
+  onPlayMusic?: () => void;
+};
+
+export function CoupleSection({ onPlayMusic }: CoupleSectionProps) {
   return (
     <section
       className="relative overflow-hidden border-b border-[var(--border)] bg-[var(--surface)] py-14 sm:py-16 md:py-20"
@@ -39,13 +44,15 @@ export function CoupleSection() {
           className="mt-5 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-4 sm:gap-y-1"
         >
           <span className="font-invite text-[2rem] font-semibold text-[var(--text)] sm:text-4xl md:text-[2.5rem]">
-            Roopashri
+            Roopashri{" "}
+            <span className="font-display text-[0.85em] font-semibold text-[var(--text-muted)]">U</span>
           </span>
           <span className="font-display text-xl text-[var(--wheat)] sm:text-2xl" aria-hidden="true">
             ✦
           </span>
           <span className="font-invite text-[2rem] font-semibold text-[var(--text)] sm:text-4xl md:text-[2.5rem]">
-            Dhakshinamoorthy
+            Dhakshinamoorthy{" "}
+            <span className="font-display text-[0.85em] font-semibold text-[var(--text-muted)]">A</span>
           </span>
         </motion.div>
 
@@ -79,21 +86,26 @@ export function CoupleSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25, duration: 0.65, ease: easeOut }}
-          className="invite-card mx-auto mt-10 max-w-xs p-8 sm:max-w-sm sm:p-10"
+          className="mx-auto mt-10 max-w-xs sm:max-w-sm"
         >
-          <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-[var(--sage-deep)]">
-            Traditional celebration
-          </p>
-          <div className="mt-6 flex justify-center">
-            <Image
-              src="/images/couple-celebration.png"
-              alt="Illustration of Roopashri and Dhakshinamoorthy in traditional wedding attire"
-              width={1024}
-              height={1024}
-              className="h-auto w-full max-w-[280px] rounded-xl object-contain shadow-sm sm:max-w-[320px]"
-              sizes="(max-width: 640px) 280px, 320px"
-            />
-          </div>
+          <motion.button
+            type="button"
+            onClick={() => onPlayMusic?.()}
+            whileTap={{ scale: 0.985 }}
+            transition={{ type: "spring", stiffness: 520, damping: 28 }}
+            className="invite-card w-full px-8 py-8 text-center transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sage)] focus-visible:ring-offset-2 sm:px-10 sm:py-10"
+            aria-label="Play wedding music — nadaswaram"
+          >
+            <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-[var(--sage-deep)]">
+              Traditional celebration
+            </p>
+            <p className="mt-2 text-center text-[0.65rem] text-[var(--text-subtle)]">
+              Tap the card to play music
+            </p>
+            <div className="mt-5 flex justify-center">
+              <CoupleIllustration className="h-auto w-full max-w-[200px] sm:max-w-[220px]" />
+            </div>
+          </motion.button>
         </motion.div>
       </div>
     </section>

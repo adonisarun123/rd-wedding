@@ -16,6 +16,7 @@ export default function Home() {
   const [splashDone, setSplashDone] = useState(false);
   const [mobileSimple, setMobileSimple] = useState(false);
   const unlockAudioRef = useRef<(() => void) | null>(null);
+  const playMusicRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <>
       {/* Mount during splash so audio can load; splash tap unlocks iOS playback */}
-      <AudioPlayer unlockRef={unlockAudioRef} />
+      <AudioPlayer unlockRef={unlockAudioRef} playRef={playMusicRef} />
 
       {!splashDone && (
         <SplashScreen
@@ -50,7 +51,7 @@ export default function Home() {
         <div className="relative z-[14]">
           <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
             <Hero />
-            <CoupleSection />
+            <CoupleSection onPlayMusic={() => playMusicRef.current?.()} />
             <ScheduleSection />
             <Countdown />
             <div className="border-t border-[var(--border)] py-12 md:py-16">
