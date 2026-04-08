@@ -52,17 +52,28 @@ function EventIcon({ type }: { type: string }) {
       </svg>
     );
   }
+  /* Evening reception — crescent moon & stars (no face / “sad smiley” read) */
   return (
-    <svg className="h-8 w-8 text-[var(--wheat-light)]" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <circle cx="11" cy="13" r="2" fill="currentColor" opacity="0.75" />
-      <circle cx="21" cy="13" r="2" fill="currentColor" opacity="0.75" />
+    <svg className="h-8 w-8 text-[var(--wheat-light)]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M9 22q4.5-3.5 7-3.5t7 3.5"
+        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+        fill="currentColor"
+        fillOpacity="0.4"
         stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        fill="none"
+        strokeWidth="0.85"
+        strokeLinejoin="round"
       />
+      <path
+        d="M4.5 6.5 5.1 8.4l2 .15L5.5 9.9l.65 1.95L4 10.7l-1.15.7.65-1.95-1.6-1.35 2-.15.65-1.9Z"
+        fill="currentColor"
+        fillOpacity="0.55"
+      />
+      <path
+        d="M10.5 17.2l.35 1 1.05.1-.8.6.3 1-.95-.55-.95.55.3-1-.8-.6 1.05-.1.35-1Z"
+        fill="currentColor"
+        fillOpacity="0.42"
+      />
+      <circle cx="18.5" cy="16.5" r="0.85" fill="currentColor" fillOpacity="0.48" />
     </svg>
   );
 }
