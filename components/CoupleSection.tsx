@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { CoupleIllustration } from "./decorative/CoupleIllustration";
 import { FloralRule } from "./decorative/FloralRule";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -24,7 +24,7 @@ export function CoupleSection() {
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-8%" }}
+          viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: 0.5, ease: easeOut }}
           className="text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-[var(--text-subtle)] sm:text-xs"
         >
@@ -34,7 +34,7 @@ export function CoupleSection() {
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-8%" }}
+          viewport={{ once: true, amount: 0.12 }}
           transition={{ delay: 0.08, duration: 0.6, ease: easeOut }}
           className="mt-5 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-4 sm:gap-y-1"
         >
@@ -85,7 +85,14 @@ export function CoupleSection() {
             Traditional celebration
           </p>
           <div className="mt-6 flex justify-center">
-            <CoupleIllustration className="h-auto w-full max-w-[200px] sm:max-w-[220px]" />
+            <Image
+              src="/images/couple-celebration.png"
+              alt="Illustration of Roopashri and Dhakshinamoorthy in traditional wedding attire"
+              width={1024}
+              height={1024}
+              className="h-auto w-full max-w-[280px] rounded-xl object-contain shadow-sm sm:max-w-[320px]"
+              sizes="(max-width: 640px) 280px, 320px"
+            />
           </div>
         </motion.div>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { Countdown } from "@/components/Countdown";
 import { CoupleSection } from "@/components/CoupleSection";
@@ -15,6 +15,7 @@ import { VenueMap } from "@/components/VenueMap";
 export default function Home() {
   const [splashDone, setSplashDone] = useState(false);
   const [mobileSimple, setMobileSimple] = useState(false);
+  const unlockAudioRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
@@ -26,10 +27,14 @@ export default function Home() {
 
   return (
     <>
+      {/* Mount during splash so audio can load; splash tap unlocks iOS playback */}
+      <AudioPlayer unlockRef={unlockAudioRef} />
+
       {!splashDone && (
         <SplashScreen
           onComplete={() => setSplashDone(true)}
           isMobileSimple={mobileSimple}
+          onInteractionUnlock={() => unlockAudioRef.current?.()}
         />
       )}
 
@@ -42,7 +47,7 @@ export default function Home() {
       >
         {splashDone ? <FlowerShower /> : null}
 
-        <div className="relative z-[2]">
+        <div className="relative z-[14]">
           <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
             <Hero />
             <CoupleSection />
@@ -56,8 +61,6 @@ export default function Home() {
           <Footer />
         </div>
       </main>
-
-      {splashDone ? <AudioPlayer /> : null}
     </>
   );
 }

@@ -54,14 +54,15 @@ function EventIcon({ type }: { type: string }) {
   }
   return (
     <svg className="h-8 w-8 text-[var(--wheat-light)]" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="11" cy="13" r="2" fill="currentColor" opacity="0.75" />
+      <circle cx="21" cy="13" r="2" fill="currentColor" opacity="0.75" />
       <path
-        d="M8 22c4-6 12-6 16 0"
+        d="M9 22q4.5-3.5 7-3.5t7 3.5"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         strokeLinecap="round"
+        fill="none"
       />
-      <circle cx="10" cy="14" r="2" fill="currentColor" opacity="0.7" />
-      <circle cx="22" cy="14" r="2" fill="currentColor" opacity="0.7" />
     </svg>
   );
 }
@@ -99,7 +100,7 @@ export function ScheduleSection() {
             key={ev.key}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-5%" }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="invite-card relative flex flex-col overflow-hidden text-left"
           >

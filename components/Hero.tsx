@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FloralRule } from "./decorative/FloralRule";
-import { GaneshaIcon } from "./decorative/GaneshaIcon";
+import { BrideGroomIcon } from "./decorative/BrideGroomIcon";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -27,7 +27,7 @@ export function Hero() {
           className="invite-card mx-auto px-6 py-10 sm:px-10 sm:py-12"
         >
           <div className="flex justify-center">
-            <GaneshaIcon className="h-11 w-11 text-[var(--sage-deep)] opacity-90 sm:h-12 sm:w-12" />
+            <BrideGroomIcon className="h-12 w-14 text-[var(--sage-deep)] opacity-90 sm:h-[3.25rem] sm:w-[3.75rem]" />
           </div>
 
           <motion.p

@@ -1,19 +1,32 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Deepam } from "./decorative/Deepam";
 import { GaneshaIcon } from "./decorative/GaneshaIcon";
 
 type SplashScreenProps = {
   onComplete: () => void;
+  /** Call synchronously on first touch — unlocks iOS Safari audio in the same gesture. */
+  onInteractionUnlock?: () => void;
   isMobileSimple?: boolean;
 };
 
-export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) {
+export function SplashScreen({
+  onComplete,
+  onInteractionUnlock,
+  isMobileSimple,
+}: SplashScreenProps) {
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<"intro" | "exit">("intro");
   const opened = useRef(false);
+  const unlockFired = useRef(false);
+
+  const runUnlock = useCallback(() => {
+    if (unlockFired.current) return;
+    unlockFired.current = true;
+    onInteractionUnlock?.();
+  }, [onInteractionUnlock]);
 
   useEffect(() => {
     const t = window.setTimeout(() => setPhase("exit"), 2500);
@@ -49,6 +62,8 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
             : { opacity: 1 }
           : { opacity: 1 }
       }
+      onPointerDownCapture={runUnlock}
+      onTouchStartCapture={runUnlock}
     >
       {!simple && phase === "exit" ? (
         <>
@@ -96,6 +111,14 @@ export function SplashScreen({ onComplete, isMobileSimple }: SplashScreenProps) 
           transition={{ delay: 0.9, duration: 0.6 }}
         >
           ॐ
+        </motion.p>
+        <motion.p
+          className="text-center text-sm text-white/80 md:text-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.05, duration: 0.5 }}
+        >
+          Tap anywhere to enable sound
         </motion.p>
         <motion.p
           className="text-lg text-white/85"
