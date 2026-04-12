@@ -7,6 +7,7 @@ import {
   getVenueAddressLines,
 } from "@/lib/utils";
 import { FloralRule } from "./decorative/FloralRule";
+import { VenueTamboolam } from "./decorative/VenueTamboolam";
 
 type VenueMapProps = {
   embedded?: boolean;
@@ -21,9 +22,12 @@ export function VenueMap({ embedded }: VenueMapProps) {
         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-[var(--sage-deep)]">
           Where to find us
         </p>
-        <h2 className="font-display mt-2 text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-3xl">
-          Venue
-        </h2>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
+          <VenueTamboolam />
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-3xl">
+            Venue
+          </h2>
+        </div>
         <div className="mt-4 flex justify-center sm:justify-start">
           <FloralRule className="w-full justify-center sm:justify-start" />
         </div>

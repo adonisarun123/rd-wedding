@@ -44,6 +44,17 @@ export function MangoToran({ className = "" }: { className?: string }) {
             opacity="0.85"
           />
         ))}
+        {/* Kanakambaram (crossandra) dots — classic orange with jasmine green */}
+        {Array.from({ length: 11 }).map((_, i) => (
+          <circle
+            key={`k-${i}`}
+            cx={12 + i * 32}
+            cy="11"
+            r="2.8"
+            fill="#d8562a"
+            fillOpacity="0.78"
+          />
+        ))}
       </svg>
     </div>
   );

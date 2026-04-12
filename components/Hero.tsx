@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FloralRule } from "./decorative/FloralRule";
 import { BrideGroomIcon } from "./decorative/BrideGroomIcon";
+import { HeroLotus } from "./decorative/HeroLotus";
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
@@ -22,7 +23,7 @@ function HeroCornerFrame() {
 export function Hero() {
   return (
     <header
-      className="relative overflow-hidden border-b border-[var(--border-strong)]/80"
+      className="relative overflow-x-hidden border-b border-[var(--border-strong)]/80"
       aria-label="Welcome"
     >
       <div
@@ -53,6 +54,8 @@ export function Hero() {
       <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-[var(--wheat)]/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-20 -left-24 h-64 w-64 rounded-full bg-[var(--terracotta-soft)]/50 blur-3xl" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-[min(100%,42rem)] -translate-x-1/2 bg-gradient-to-b from-[var(--gold-light)]/25 to-transparent blur-2xl" />
+
+      <HeroLotus />
 
       <div className="relative z-[2] mx-auto max-w-3xl px-5 py-14 text-center sm:px-8 sm:py-16 md:py-[4.5rem]">
         <div className="hero-invite-perspective mx-auto w-full max-w-lg">

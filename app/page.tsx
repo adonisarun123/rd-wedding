@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { Countdown } from "@/components/Countdown";
 import { CoupleSection } from "@/components/CoupleSection";
+import { CelebrationEffects } from "@/components/CelebrationEffects";
 import { FlowerShower } from "@/components/FlowerShower";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
@@ -11,6 +12,7 @@ import { Hero } from "@/components/Hero";
 import { ScheduleSection } from "@/components/ScheduleSection";
 import { SplashScreen } from "@/components/SplashScreen";
 import { VenueMap } from "@/components/VenueMap";
+import { MangoToran } from "@/components/decorative/MangoToran";
 
 export default function Home() {
   const [splashDone, setSplashDone] = useState(false);
@@ -29,7 +31,11 @@ export default function Home() {
   return (
     <>
       {/* Mount during splash so audio can load; splash tap unlocks iOS playback */}
-      <AudioPlayer unlockRef={unlockAudioRef} playRef={playMusicRef} />
+      <AudioPlayer
+        unlockRef={unlockAudioRef}
+        playRef={playMusicRef}
+        splashComplete={splashDone}
+      />
 
       {!splashDone && (
         <SplashScreen
@@ -46,10 +52,16 @@ export default function Home() {
             : "pointer-events-none relative min-h-[100dvh] opacity-0"
         }
       >
-        {splashDone ? <FlowerShower /> : null}
+        {splashDone ? (
+          <>
+            <CelebrationEffects />
+            <FlowerShower />
+          </>
+        ) : null}
 
         <div className="relative z-[14]">
-          <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl px-4 pb-16 pt-1 sm:px-6 lg:px-8">
+            <MangoToran className="mb-1 w-full max-w-3xl sm:mx-auto" />
             <Hero />
             <CoupleSection onPlayMusic={() => playMusicRef.current?.()} />
             <ScheduleSection />

@@ -76,11 +76,11 @@ body {
     opacity: 0;
   }
   8% {
-    opacity: 0.42;
+    opacity: 0.52;
   }
   100% {
     transform: translate3d(0, 110vh, 0);
-    opacity: 0.06;
+    opacity: 0.08;
   }
 }
 
@@ -90,11 +90,11 @@ body {
     opacity: 0;
   }
   8% {
-    opacity: 0.42;
+    opacity: 0.52;
   }
   100% {
     -webkit-transform: translate3d(0, 110vh, 0);
-    opacity: 0.06;
+    opacity: 0.08;
   }
 }
 
@@ -121,6 +121,23 @@ body {
   }
   66% {
     -webkit-transform: translate3d(-6px, 0, 0) rotate(240deg);
+  }
+}
+
+/* Ground cracker sparkles (CelebrationEffects) */
+@keyframes cracker-burst {
+  0%,
+  86% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.45);
   }
 }
 
@@ -165,6 +182,139 @@ body {
   100% {
     opacity: 0.4;
   }
+}
+
+/* Mango–marigold toran + gentle motif motion (honoured by prefers-reduced-motion globals) */
+@keyframes toran-sway {
+  0%,
+  100% {
+    transform: rotate(-0.55deg);
+  }
+  50% {
+    transform: rotate(0.55deg);
+  }
+}
+
+@keyframes lotus-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.16;
+  }
+}
+
+@keyframes temple-bracket-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes tamboolam-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.animate-lotus-breathe {
+  animation: lotus-breathe 9s ease-in-out infinite;
+  transform-origin: 50% 55%;
+}
+
+.animate-temple-bracket-pulse {
+  animation: temple-bracket-pulse 7.5s ease-in-out infinite;
+}
+
+.animate-tamboolam-float {
+  animation: tamboolam-float 4.8s ease-in-out infinite;
+}
+
+/* Footer couple — namaskaram (folded hands) + soft bow */
+@keyframes namaskaram-bow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  44%,
+  58% {
+    transform: translateY(2.5px);
+  }
+}
+
+@keyframes namaskaram-groom-arm {
+  0%,
+  100% {
+    transform: rotate(11deg);
+  }
+  40%,
+  62% {
+    transform: rotate(-34deg);
+  }
+}
+
+@keyframes namaskaram-bride-arm {
+  0%,
+  100% {
+    transform: rotate(-11deg);
+  }
+  40%,
+  62% {
+    transform: rotate(34deg);
+  }
+}
+
+@keyframes namaskaram-glow {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  40%,
+  62% {
+    opacity: 0.42;
+  }
+}
+
+.animate-namaskaram-bow {
+  animation: namaskaram-bow 7s ease-in-out infinite;
+}
+
+.animate-namaskaram-groom-arm {
+  animation: namaskaram-groom-arm 7s ease-in-out infinite;
+  transform-origin: 52px 46px;
+}
+
+.animate-namaskaram-bride-arm {
+  animation: namaskaram-bride-arm 7s ease-in-out infinite;
+  transform-origin: 136px 46px;
+}
+
+.animate-namaskaram-glow {
+  animation: namaskaram-glow 7s ease-in-out infinite;
+}
+
+.namaskaram-arm-groom-static {
+  transform: rotate(-32deg);
+  transform-origin: 52px 46px;
+}
+
+.namaskaram-arm-bride-static {
+  transform: rotate(32deg);
+  transform-origin: 136px 46px;
+}
+
+.namaskaram-glow-static {
+  opacity: 0.32;
 }
 
 .section-panel {

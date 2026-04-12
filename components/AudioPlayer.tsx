@@ -11,9 +11,11 @@ type AudioPlayerProps = {
   unlockRef?: MutableRefObject<(() => void) | null>;
   /** Start / resume music at full target volume (e.g. couple card tap). */
   playRef?: MutableRefObject<(() => void) | null>;
+  /** When the splash overlay has finished — triggers another autoplay attempt. */
+  splashComplete?: boolean;
 };
 
-export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
+export function AudioPlayer({ unlockRef, playRef, splashComplete }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const userTurnedOffRef = useRef(false);
@@ -60,6 +62,7 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
     if (!audio || userTurnedOffRef.current) return;
 
     const start = () => {
+      audio.muted = false;
       audio.volume = 0;
       void audio.play().then(() => {
         setHasStarted(true);
@@ -82,6 +85,25 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
 
   beginPlaybackRef.current = beginPlayback;
 
+  /** Muted start satisfies most autoplay policies; then unmute + fade in. */
+  const attemptAutoplay = useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio || userTurnedOffRef.current || !audio.paused) return;
+    try {
+      audio.muted = true;
+      audio.volume = 0;
+      await audio.play();
+      window.setTimeout(() => {
+        audio.muted = false;
+        setHasStarted(true);
+        setPlaying(true);
+        fadeVolumeTo(audio, TARGET_VOLUME);
+      }, 60);
+    } catch {
+      audio.muted = false;
+    }
+  }, [fadeVolumeTo]);
+
   const playImmediateFromGesture = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -89,6 +111,7 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
     clearFade();
 
     const go = () => {
+      audio.muted = false;
       audio.volume = TARGET_VOLUME;
       void audio.play().then(() => {
         setHasStarted(true);
@@ -172,19 +195,17 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
   useEffect(() => {
     if (!ready) return;
 
-    const tryStart = () => {
-      if (userTurnedOffRef.current) return;
-      const el = audioRef.current;
-      if (!el || !el.paused) return;
-      beginPlaybackRef.current();
-    };
-
-    const t = window.setTimeout(tryStart, 150);
+    void attemptAutoplay();
+    const t1 = window.setTimeout(() => void attemptAutoplay(), 400);
+    const t2 = window.setTimeout(() => void attemptAutoplay(), 1400);
 
     const onGesture = (e: Event) => {
       const tgt = e.target;
       if (tgt instanceof Node && buttonRef.current?.contains(tgt)) return;
-      tryStart();
+      if (userTurnedOffRef.current) return;
+      const el = audioRef.current;
+      if (!el || !el.paused) return;
+      beginPlaybackRef.current();
     };
 
     document.addEventListener("click", onGesture, false);
@@ -192,12 +213,20 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
     document.addEventListener("keydown", onGesture, false);
 
     return () => {
-      window.clearTimeout(t);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
       document.removeEventListener("click", onGesture, false);
       document.removeEventListener("touchend", onGesture, false);
       document.removeEventListener("keydown", onGesture, false);
     };
-  }, [ready]);
+  }, [ready, attemptAutoplay]);
+
+  useEffect(() => {
+    if (!ready || !splashComplete) return;
+    void attemptAutoplay();
+    const t = window.setTimeout(() => void attemptAutoplay(), 250);
+    return () => window.clearTimeout(t);
+  }, [ready, splashComplete, attemptAutoplay]);
 
   const toggle = useCallback(() => {
     const audio = audioRef.current;
@@ -205,6 +234,7 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
 
     if (audio.paused) {
       userTurnedOffRef.current = false;
+      audio.muted = false;
       audio.volume = 0;
       void audio.play().then(() => {
         setPlaying(true);
@@ -255,8 +285,8 @@ export function AudioPlayer({ unlockRef, playRef }: AudioPlayerProps) {
 
       {ready && !hasStarted ? (
         <p className="pointer-events-none fixed bottom-16 right-4 z-[10000] max-w-[220px] text-right text-[10px] leading-snug text-[var(--text-subtle)] md:bottom-[4.5rem] md:right-6 md:max-w-xs md:text-xs">
-          Tap the splash or anywhere on the page to start nadaswaram. Use the button to turn music
-          off.
+          Music should start automatically. If it doesn&apos;t (browser policy), tap anywhere. Use
+          the button to turn it off.
         </p>
       ) : null}
     </>

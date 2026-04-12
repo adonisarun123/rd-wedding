@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { downloadIcs } from "@/lib/calendar";
 import { getMapsDirectionsUrl, getVenueLine } from "@/lib/utils";
 import { FloralRule } from "./decorative/FloralRule";
+import { ScheduleTempleBrackets } from "./decorative/ScheduleTempleBrackets";
 
 const venue = getVenueLine();
 
@@ -84,6 +85,8 @@ export function ScheduleSection() {
       className="relative scroll-mt-4 py-14 sm:py-16 md:py-20"
       aria-labelledby="schedule-heading"
     >
+      <ScheduleTempleBrackets />
+
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--border-strong)] to-transparent" />
 
       <div className="text-center">
