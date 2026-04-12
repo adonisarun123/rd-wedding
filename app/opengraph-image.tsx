@@ -35,18 +35,6 @@ export default function Image() {
         >
           Roopashri & Dhakshinamoorthy
         </div>
-        <div
-          style={{
-            marginTop: 28,
-            fontSize: 34,
-            padding: "10px 36px",
-            border: "2px solid rgba(107,117,98,0.35)",
-            borderRadius: 14,
-            color: "#5c564d",
-          }}
-        >
-          R & D
-        </div>
         <div style={{ marginTop: 32, fontSize: 26, color: "#5c564d" }}>7 June 2026 · Bengaluru</div>
       </div>
     ),

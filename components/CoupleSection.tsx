@@ -67,21 +67,6 @@ export function CoupleSection({ onPlayMusic }: CoupleSectionProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5, ease: easeOut }}
-          className="mx-auto mt-8 inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] px-6 py-2.5 shadow-sm"
-        >
-          <span className="text-[0.7rem] font-semibold uppercase tracking-[0.15em] text-[var(--text-subtle)]">
-            Monogram
-          </span>
-          <span className="font-display text-lg font-semibold tabular-nums text-[var(--terracotta)] sm:text-xl">
-            R · D
-          </span>
-        </motion.div>
-
-        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
